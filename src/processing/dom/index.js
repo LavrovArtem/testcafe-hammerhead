@@ -218,7 +218,7 @@ export default class DomProcessor {
 
         return urlUtils.getResourceTypeString({
             isIframe:     tagName === 'iframe' || tagName === 'frame' || this._isOpenLinkInIframe(el),
-            isForm:       tagName === 'form' || tagName === 'input' || tagName === 'button',
+            isForm:       tagName === 'form' || tagName === 'input' || tagName === 'button' || tagName === 'open-form',
             isScript:     tagName === 'script',
             isHtmlImport: tagName === 'link' && this._getRelAttribute(el) === 'import'
         });

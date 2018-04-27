@@ -142,6 +142,8 @@ class PageProcessor extends ResourceProcessorBase {
 
         PageProcessor._prepareHtml(html, processingOpts);
 
+        html = html.replace(/<form(>|\s[^>]*?>)/ig, '<open-form$1</open-form>').replace(/<\/form(>|\s[^>]*?>)/ig, '<close-form$1</close-form>');
+
         const root       = this.parser.parse(html);
         const domAdapter = new DomAdapter(processingOpts.isIframe, processingOpts.crossDomainProxyPort);
         const elements   = parse5Utils.findElementsByTagNames(root, ['base', 'meta', 'head', 'body', 'frameset']);
@@ -171,7 +173,11 @@ class PageProcessor extends ResourceProcessorBase {
         PageProcessor._changeMetas(metas, domAdapter);
         PageProcessor._addCharsetInfo(head, charset.get(), domAdapter);
 
-        return (bom || '') + this.serializer.serialize(root);
+        const result = (bom || '') + this.serializer.serialize(root);
+
+        return result
+            .replace(/<open-form(>|\s[^>]*?>)<\/open-form>/ig, '<form$1')
+            .replace(/<close-form(>|\s[^>]*?>)<\/close-form>/ig, '</form$1');
     }
 }
 

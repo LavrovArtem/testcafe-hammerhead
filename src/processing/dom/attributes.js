@@ -1,7 +1,7 @@
 export const URL_ATTR_TAGS = {
     href:       ['a', 'link', 'image', 'area', 'base'],
     src:        ['img', 'embed', 'script', 'source', 'video', 'audio', 'input', 'frame', 'iframe'],
-    action:     ['form'],
+    action:     ['form', 'open-form'],
     formaction: ['button', 'input'],
     manifest:   ['html'],
     data:       ['object']
